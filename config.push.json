@@ -1,0 +1,21 @@
+{
+  "apn": {
+    "passphrase": "kingdomhearts1",
+    "key": "pushcert.pem",
+    "cert": "pushcert.pem"
+  },
+  "apn-dev": {
+    "passphrase": "kingdomhearts1",
+    "key": "pushcert.pem",
+    "cert": "pushcert.pem"
+  },
+  "gcm": {
+    "apiKey": "AIzaSyBYQpzmtb69AwhUabpJUNq4MeC3mhX1IGo",
+    "projectNumber": 407539363662
+  },
+  "production": false,
+  "badge": true,
+  "sound": true,
+  "alert": true,
+  "vibrate": true
+}

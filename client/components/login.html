@@ -1,0 +1,61 @@
+<template name="LoginForm">
+<div id="login-hero" class="violet">
+    <img src="/images/pulsetrans.png" />
+    <p>PULSE</p>
+</div>
+<div id="login">
+    {{#unless currentUser}}
+        <div>{{LoginText}}</div>
+        <form id="login-form" action="action">
+            <div>
+                <div class="group">
+                      <input type="tel" id="login-phone" required>
+                      <span class="highlight"></span>
+                      <span class="bar violet"></span>
+                      <label class="violet">Phone</label>
+                </div>
+
+                <div class="group">
+                      <input type="password" id="login-password" required>
+                      <span class="highlight"></span>
+                      <span class="bar cyan"></span>
+                      <label class="cyan">Password</label>
+                </div>
+
+                {{#if hasInvite}}
+
+                    <div class="group">
+                          <input type="text" id="login-invite" value="{{defaultCode}}" required>
+                          <span class="highlight"></span>
+                          <span class="bar green"></span>
+                          <label class="green">Invitation</label>
+                    </div>
+                {{/if}}
+
+                {{#if codeSent}}
+                    <div class="group">
+                          <input type="tel" id="login-code" required>
+                          <span class="highlight"></span>
+                          <span class="bar orange"></span>
+                          <label class="orange">SMS Code</label>
+                    </div>
+                {{/if}}
+
+             </div>
+
+            {{#unless creating}}<input type="submit" id="login-button" class="violet" value="ENTER" />{{/unless}}
+            {{#if codeSent}}<input type="button" id="verify-phone" class="cyan" value="VERIFY" />{{/if}}
+            {{#if creating}}{{#unless codeSent}}<input type="button" id="create-account" class="blue" value="CREATE" />{{/unless}}{{/if}}
+            {{#unless creating}}<input type="button" id="new-user" class="green" value="NEW USER" />{{/unless}}
+            {{#if creating}}
+            <input type="button" id="login-cancel" class="orange" value="CANCEL" />
+            {{#unless hasInvite}}<input type="button" id="login-hasInvite" class="green" value="HAVE INVITE CODE" />{{/unless}}
+            {{/if}}
+
+       </form>
+    {{else}}
+        <button id="login-logout">EXIT</button>
+    {{/unless}}
+</div>
+
+</template>

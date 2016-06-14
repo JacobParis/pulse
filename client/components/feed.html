@@ -1,0 +1,112 @@
+<template name="Posts">
+  <ul id="feed-posts">
+  {{#with singlePost}}
+    {{#if life}}
+    <li>
+        {{#each ancestors}}
+          {{#if life}}
+            {{> post}}
+            <div class="post-spacer"><span></span></div>
+          {{/if}}
+        {{/each}}
+      {{#if life}}
+        {{> post}}
+      {{/if}}
+        {{#each replies}}
+          {{#if life}}
+            <div class="post-spacer"><span></span></div>
+            {{> post}}
+          {{/if}}
+        {{/each}}
+        {{#if currentUser}}
+          {{> feedInput}}
+        {{else}}
+          <div class="pitch">
+            <h2>WARN YOUR FRIENDS</h2>
+            <p>Join the Masquerade today and unlock Limited Edition content</p>
+            <a href="#download">
+              <button class="cyan" id="pitch-join">JOIN THE PARTY</button>
+            </a>
+            {{#if showDownload}}
+              <div class="download dialog cyan">
+                <a href="#">
+                  <button class="dialog-close">X</button>
+                </a>
+                <h4>ON YOUR MOBILE DEVICE</h4>
+                <p>Visit
+                  <a href="http://www.masquerade.sh/">masquerade.sh</a>
+                  or text a link to your phone</p>
+
+                <div class="input">
+                  <input type="tel" id="download-phone"/>
+                  <button class="mdi-message green" id="sendLink"></button>
+                </div>
+
+                <div class="download-badges">
+                  <a
+                    href="https://play.google.com/store/apps/details?id=com.id1l27p6tm6qraa1fyl29s&amp;hl=en&amp;utm_source=global_co&amp;utm_medium=prtnr&amp;utm_content=Mar2515&amp;utm_campaign=PartBadge&amp;pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1">
+                    <img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png">
+                  </a>
+                </div>
+
+                <h4>ON THE WEB</h4>
+                <p>Visit
+                  <a href="http://the.masquerade.sh/">the.masquerade.sh</a>
+                  and join the party!</p>
+              </div>
+            {{/if}}
+          </div>
+        {{/if}}
+      </li>
+    {{/if}}
+  {{/with}}
+</ul>
+</template>
+
+<template name="Feed">
+  {{#if currentUser}}
+  <!--<div class="tagsinput green">
+    <div class="group">
+      <input type="text" id="feed-input" required/>
+      <label class="white">What are you up to?</label>
+    </div>
+    <button id="feed-input-send" class="mdi-send green"></button>
+  </div>-->
+    {{> feedInput}}
+
+  {{/if}}
+  <ul id="feed-posts">
+    {{#each allPosts}}
+      {{#if life}}
+      <li>
+          {{> post}}
+      </li>
+      {{/if}}
+    {{/each}}
+  </ul>
+</template>
+
+<template name="feedInput">
+  <div class="feed-input black {{#if options}}reveal{{/if}}">
+    <button id="feed-input-options" class="mdi-settings-box"></button>
+    <div data-value="{{placeholder}}" contentEditable></div>
+    <button id="feed-input-send" class="mdi-send"></button>
+    <div class="input-photo-pending">
+    </div>
+  </div>
+  <div class="message-options black">
+    <label id="message-button-photo" class="mdi-message-image">
+      <input id="photo-input" type="file" class="hide"/>
+    </label>
+    <!--{{#unless colourSet}}
+    <div class="message-palette">
+      {{#each colours}}
+      <span class="{{colour}}">
+        {{#if colourInput colour}}<i class="mdi-check"></i>{{/if}}
+      </span>
+      {{/each}}
+    </div>
+    {{/unless}}-->
+  </div>
+
+</template>

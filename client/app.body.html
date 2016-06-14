@@ -1,0 +1,57 @@
+<template name="layout">
+  {{#if currentUser}}
+  {{#unless route 'LoginForm'}}
+  <nav class="">
+    <span class="left cyan">
+      <a href="{{pathFor 'Home'}}">
+        <i class="mdi-home" title="Home"></i>
+      </a>
+    </span>
+    <span class="right green">
+      <a href="{{pathFor 'Feed'}}">
+        <i class="mdi-message" title="Wall"></i>
+      </a>
+    </span>
+  </nav>
+  {{/unless}}
+  {{/if}}
+  <div id="view">
+    <main class="{{route}}">
+      <div class="splash cyan {{reveal}}">{{score}}</div>
+      {{> notifications}}
+      {{> yield}}
+      {{#if dialog}}
+        {{#with dialog}}}
+          {{> modal}}
+        {{/with}}
+      {{/if}}
+    </main>
+  </div>
+  <footer>
+      This app is in beta. For assistance contact us
+      <a href="http://twitter.com/masquerade_app">@masquerade_app</a>
+  </footer>
+</template>
+
+<template name="modal">
+  <div class="overlay"></div>
+  <div class="dialog" id="modal">
+    <div class="modal-header">{{title}}</div>
+    <div class="modal-content">{{message}}</div>
+    <div class="modal-footer">
+      <div class="buttons">
+        {{#each buttons}}
+          <button class="{{class}} response" onClick="{{callback}}">{{label}}</button>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="userPill">
+  <p class="">{{name}}</p>
+</template>
+
+<template name="noMatches">
+  <p>No matches found</p>
+</template>

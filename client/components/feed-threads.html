@@ -1,0 +1,51 @@
+<template name="post">
+    <div class="{{me}} {{colour}} {{#if client}}client{{/if}} {{reply}} post {{#if singlePost}}large{{/if}}">
+      <div class="post-header">
+        {{#if avatar}}
+        <img class="post-avatar" src="{{avatar}}" />
+        {{/if}}
+        <div class="post-author {{avcolour}}">{{username}}</div>
+        {{#if timestamp}}
+        <span class="timestamp {{avcolour}}">{{time}}</span>
+        {{/if}}
+
+        {{#if replies}} <!-- Display number of comments -->
+        <label class="{{avcolour}} post-comment noselect">
+          <div>{{replies}}</div>
+          <i class="mdi-comment"></i>
+        </label>
+        {{/if}}
+
+        <!-- Display life remaining -->
+        <label class="{{avcolour}} post-heart noselect">
+          <div>{{life}}</div>
+          {{#if currentUser}}{{#unless me}}
+            <input type="checkbox" checked="{{likedEh}}"/>
+          {{/unless}}{{/if}}
+          <i class="mdi-heart"></i>
+        </label>
+
+      </div>
+
+      {{#if image}}
+      <div class="post-image">
+          <img src="{{image}}">
+        </div>
+      {{/if}}
+
+      <div class="post-main">
+        {{#unless singlePost}}
+          <a class="clickthru" href="/post/{{_id}}"></a>
+        {{/unless}}
+        <p>
+            {{content}}
+            {{#if seeMore}}<a href="/#" class="post-seeMore"> See more... </a>{{/if}}
+        </p>
+        {{#if link}}
+        <div class="post-link">
+          <img src="{{link}}" /><br />
+        </div>
+        {{/if}}
+      </div>
+    </div>
+</template>
