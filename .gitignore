@@ -1,4 +1,4 @@
 settings.json
 dump/
 node_modules
-client/**/.*
+client/.*
