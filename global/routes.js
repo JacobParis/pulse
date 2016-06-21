@@ -3,7 +3,7 @@ Router.configure({
 });
 
 Router.map( function () {
-    this.route('Home', {
+    /*this.route('Home', {
         path: '/profile',
         subscriptions: function () {
             return [
@@ -24,7 +24,7 @@ Router.map( function () {
             ];
         }
     });
-
+*/
     this.route('Logout', {
         path: '/exit',
         before: function () {

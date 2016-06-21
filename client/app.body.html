@@ -1,20 +1,4 @@
 <template name="layout">
-  {{#if currentUser}}
-  {{#unless route 'LoginForm'}}
-  <nav class="">
-    <span class="left cyan">
-      <a href="{{pathFor 'Home'}}">
-        <i class="mdi-home" title="Home"></i>
-      </a>
-    </span>
-    <span class="right green">
-      <a href="{{pathFor 'Feed'}}">
-        <i class="mdi-message" title="Wall"></i>
-      </a>
-    </span>
-  </nav>
-  {{/unless}}
-  {{/if}}
   <div id="view">
     <main class="{{route}}">
       <div class="splash cyan {{reveal}}">{{score}}</div>
