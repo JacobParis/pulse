@@ -1,0 +1,15 @@
+{
+  "name": "pulse",
+  "private": true,
+  "scripts": {
+    "start": "meteor run --settings development.json",
+    "build": "meteor build ~/documents/masquerade/bin --mobile-settings development.json  --server http://the.masquerade.sh/",
+    "ios":"meteor run ios-device --mobile-server=http://the.masquerade.sh/ --verbose --settings development.json",
+    "android": "meteor run android-device --mobile-server=http://the.masquerade.sh/ --verbose --settings development.json",
+    "deploy": "DEPLOY_HOSTNAME=galaxy.meteor.com meteor deploy --settings development.json the.masquerade.sh"
+
+  },
+  "dependencies": {
+    "meteor-node-stubs": "~0.2.0"
+  }
+}
