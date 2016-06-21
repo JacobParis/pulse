@@ -90,13 +90,23 @@
 
   <div class="feed-input black">
     <div class="feed-input-header black {{#if options}}reveal{{/if}}">
-      <img src="{{avatar}}">
-      <div>{{name}}</div>
-      <div>
-        <label id="message-button-photo" class="mdi-message-image">
-          <input id="photo-input" type="file" class="hide">
-        </label>
+      <label class="home-avatar">
+        <img src="{{avatar}}" />
+        <input type="file" class="file_bag">
+      </label>
+      <div class="group">
+        <input type="text" id="settings-name" required>
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <label>{{name}}</label>
+        {{#if editing}}
+          <button type="reset" class="mdi-close"></button>
+          <button type="submit" class="mdi-check"></button>
+        {{/if}}
       </div>
+      <label id="message-button-photo" class="mdi-message-image">
+        <input id="photo-input" type="file" class="hide">
+      </label>
     </div>
     <div class="input-photo-pending"></div>
     <button id="feed-input-options" class="mdi-settings-box"></button>

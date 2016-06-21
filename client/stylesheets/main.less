@@ -327,57 +327,7 @@ main {
 main.Feed {
 	padding-bottom: 3rem;
 }
-.bundle {
-	.content {
-		padding-left: 60px;
-	}
-	.main {
-		height: 48px;
-		padding: 0.5rem;
-		color: @color_2;
-		position: relative;
-	}
-	label {
-		position: absolute;
-		background: none;
-		top: 0;
-		padding-top: inherit;
-		text-align: center;
-		font-weight: bold;
-	}
-	.icomment {
-		right: 3rem;
-	}
-	.heart {
-		right: 1rem;
-	}
-	i[style] {
-		position: absolute;
-		font-size: 2rem;
-		color: @color_1;
-		width: 48px;
-		height: 48px;
-	}
-	.header {
-		background: #333;
-		padding: 0.5rem;
-		color: @color_2;
-	}
-	.comment {
-		position: relative;
-		display: inline-block;
-		height: 48px;
-		padding: 0.25rem 0.5rem;
-		color: @color_2;
-		overflow: hidden;
-		transition: width 0.5s ease;
-		-ms-transition: width 0.5s ease;
-		-webkit-transition: width 0.5s ease;
-	}
-	.comment.closed {
-		max-width: 48px;
-	}
-}
+
 .feed-input-header {
 	position: absolute;
 	top: 0;
@@ -401,6 +351,9 @@ main.Feed {
 		top: 0.5rem;
 		border-radius: 0.25rem;
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+	}
+	.file_bag {
+		display: none;
 	}
 }
 
@@ -474,7 +427,11 @@ main.Feed {
 	}
 }
 #message-button-photo {
-		cursor: pointer;
+	cursor: pointer;
+	position: absolute;
+	right: 0;
+	width: 2rem;
+  padding: 0.5rem;
 }
 
 .message-options {
