@@ -87,17 +87,23 @@
 </template>
 
 <template name="feedInput">
-  <div class="feed-input black {{#if options}}reveal{{/if}}">
+
+  <div class="feed-input black">
+    <div class="feed-input-header black {{#if options}}reveal{{/if}}">
+      <img src="{{avatar}}">
+      <div>{{name}}</div>
+      <div>
+        <label id="message-button-photo" class="mdi-message-image">
+          <input id="photo-input" type="file" class="hide">
+        </label>
+      </div>
+    </div>
+    <div class="input-photo-pending"></div>
     <button id="feed-input-options" class="mdi-settings-box"></button>
     <div data-value="{{placeholder}}" contentEditable></div>
     <button id="feed-input-send" class="mdi-send"></button>
-    <div class="input-photo-pending">
-    </div>
+
   </div>
-  <div class="message-options black">
-    <label id="message-button-photo" class="mdi-message-image">
-      <input id="photo-input" type="file" class="hide"/>
-    </label>
     <!--{{#unless colourSet}}
     <div class="message-palette">
       {{#each colours}}
@@ -107,6 +113,5 @@
       {{/each}}
     </div>
     {{/unless}}-->
-  </div>
 
 </template>

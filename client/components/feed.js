@@ -263,6 +263,14 @@ Template.feedInput.events({
   },
   'click #feed-input-options' : function(e, t) {
     let bit = Session.get('feedOptions');
+
+    if(bit) {
+      //User is disabling the options menu
+      //Remove the selected image
+      $('.input-photo-pending').html('');
+      IMG = null;
+    }
+    
     Session.set('feedOptions', !bit);
   },
   'change #photo-input': function(e, t) {
@@ -275,7 +283,9 @@ Template.feedInput.events({
         img.onload = function () {
           IMG = this;
           //If I don't clone, the uploaded image will match the CSS
-          $(this).clone().addClass('pending').appendTo('.input-photo-pending');
+          //Of this preview image
+          let preview = $(this).clone().addClass('pending');
+          $('.input-photo-pending').html(preview);
         };
         img.src = e.target.result;
     };
@@ -299,10 +309,22 @@ Template.Feed.events({
 });
 
 Template.feedInput.helpers({
+  avatar: function() {
+    return Meteor.user().profile.avatar;
+  },
+  name: function() {
+    return Meteor.user().profile.username;
+  },
   options: function() {
     return Session.get('feedOptions');
   },
-  colourInput: function(colour) {
+  placeholder: function () {
+    if(this.author) {
+      var user = Meteor.users.findOne({_id: this.author});
+      if(user) return "Reply to "+user.profile.username;
+    } else return "What's on your mind?";
+  }
+  /*colourInput: function(colour) {
     var profile = Meteor.user().profile;
     if(profile) {
       if (this.timestamp) { //If this is a reply
@@ -342,12 +364,6 @@ Template.feedInput.helpers({
       return !!other;
     }
   },
-  placeholder: function () {
-    if(this.author) {
-      var user = Meteor.users.findOne({_id: this.author});
-      if(user) return "Reply to "+user.profile.username;
-    } else return "What's on your mind?";
-  },
   colours: function () {
     return [
       {colour: 'red'},
@@ -357,7 +373,9 @@ Template.feedInput.helpers({
       {colour: 'blue'},
       {colour: 'violet'}
     ];
-  }
+  },*/
+
+
 });
 
 

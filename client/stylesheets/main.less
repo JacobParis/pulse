@@ -378,6 +378,32 @@ main.Feed {
 		max-width: 48px;
 	}
 }
+.feed-input-header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 3rem;
+	color: white !important;
+	padding: 0.5rem 0 0 4rem;
+	font-size: 0.8rem;
+	transform: translateY(-100%);
+	transition: opacity 0.2s ease;
+	opacity: 0;
+	&.reveal {
+		opacity: 1;
+	}
+	img {
+		height: 2.5rem;
+		width: 2.5rem;
+		position: absolute;
+		left: 0.5rem;
+		top: 0.5rem;
+		border-radius: 0.25rem;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+	}
+}
+
 .feed-input {
 	box-shadow:  0 0px 16px rgba(0, 0, 0, 0.6);
 	color: @color_2;
@@ -390,15 +416,14 @@ main.Feed {
 	&.hidden {
 		display: none;
 	}
-	&.reveal {
-		bottom: 2rem;
-	}
+
 	div[contentEditable] {
 		color: white;
 		border: none;
 		padding-top: 1rem;
 		margin-left: 1.5rem;
 		cursor: text;
+		position:relative;
 		&:before {
 			content: attr(data-value);
 			position: absolute;
@@ -429,33 +454,26 @@ main.Feed {
     background: none;
     box-shadow: none;
     padding: 0;
-    top: 0.1rem;
     margin: auto;
 	}
 	#feed-input-send {
     right: 0.5rem;
-    top: 0;
+    bottom: 0;
 	}
 	#feed-input-options {
 	    left: 0.5rem;
-	    top: 0;
+	    bottom: 0;
 	}
-	.input-photo-pending img {
-    max-width: 100%;
-		max-height: 40vh;
+	.input-photo-pending {
+		max-height: 100px;
+    overflow: hidden;
+		img {
+			width: 100%;
+	    transform: translateY(-40%);
+		}
 	}
 }
 #message-button-photo {
-    left: 0.5rem;
-    top: 0.25rem;
-    width: 2rem;
-    padding: 0;
-    /* margin: auto; */
-    background: none;
-    box-shadow: none;
-    position: absolute;
-    color: white;
-    /* bottom: 0; */
 		cursor: pointer;
 }
 
@@ -500,6 +518,7 @@ main.Feed {
 		position: relative;
 		border-top: 1px solid rgba(128,128,128, 0.4);
 		color: white;
+		padding: 0.5rem 0;
 		&:not(.me) {
 			background-color: #333;
 		}
@@ -560,6 +579,9 @@ main.Feed {
 		p {
 			font-size: 1.5rem;
 			font-size: 5vw;
+		}
+		.post-image {
+			max-height: none;
 		}
 	}
 	.post.reply {
@@ -631,6 +653,8 @@ main.Feed {
 	}
 	.post-image {
 		margin-bottom: -0.3rem;
+		max-height: 100px;
+		overflow: hidden;
 		img {
     	width: 100%;
 		}
