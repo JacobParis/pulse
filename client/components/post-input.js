@@ -182,46 +182,6 @@ Template.feedInput.events({
 
     var fileReader = new FileReader();
     fileReader.onload = function (e) {
-      /*var exif = EXIF.readFromBinaryFile(new BinaryFile(file));
-      switch(exif.Orientation){
-        case 2:
-            // horizontal flip
-            ctx.translate(canvas.width, 0);
-            ctx.scale(-1, 1);
-            break;
-        case 3:
-            // 180° rotate left
-            ctx.translate(canvas.width, canvas.height);
-            ctx.rotate(Math.PI);
-            break;
-        case 4:
-            // vertical flip
-            ctx.translate(0, canvas.height);
-            ctx.scale(1, -1);
-            break;
-        case 5:
-            // vertical flip + 90 rotate right
-            ctx.rotate(0.5 * Math.PI);
-            ctx.scale(1, -1);
-            break;
-        case 6:
-            // 90° rotate right
-            ctx.rotate(0.5 * Math.PI);
-            ctx.translate(0, -canvas.height);
-            break;
-        case 7:
-            // horizontal flip + 90 rotate right
-            ctx.rotate(0.5 * Math.PI);
-            ctx.translate(canvas.width, -canvas.height);
-            ctx.scale(-1, 1);
-            break;
-        case 8:
-            // 90° rotate left
-            ctx.rotate(-0.5 * Math.PI);
-            ctx.translate(-canvas.width, 0);
-            break;
-        }*/
-
         var img = new Image();
         img.onload = function () {
             var MAX_WIDTH = 640;
@@ -289,57 +249,25 @@ Template.feedInput.helpers({
   },
   editing: function () {
     return Session.get('home-edit');
-  },
-  /*colourInput: function(colour) {
-    var profile = Meteor.user().profile;
-    if(profile) {
-      if (this.timestamp) { //If this is a reply
-        var source = this.ancestors ? this.ancestors : this._id;
-        var other = Threads.findOne({
-          $or: [{
-            'ancestors': source
-          }, {
-            _id: source
-          }],
-          author: Meteor.userId()
-        });
-        return other ? other.colour : profile.colour;
-      } else if (this.author) {
-        let pick = this.author === Meteor.userId() ? this.colour : profile.colour;
-        return colour ? pick === colour : pick;
-      } else {
-        let pick = profile.colour;
-        return colour ? pick === colour : pick;
-      }
-    } else {
-      return colour ? 'black' === colour : 'black';
-    }
-  },
-  colourSet: function () {
-    if(this.ancestors || this._id) {
-      var source = this.ancestors ? this.ancestors : this._id;
-      var other = Threads.findOne({
-        $or: [{
-          'ancestors': source
-        }, {
-          _id: source
-        }],
-        author: Meteor.userId()
+  }
+});
+
+Meteor.methods({
+  'uploadAvatar' : function (file) {
+    if(Meteor.isClient) {
+      S3.upload({
+        files: file,
+        path: "avatars",
+        encoding: 'base64'
+      },function(e,r){
+        //Add to profile
+        if(e) throw new Meteor.Error(500, e);
+        else {
+          if(r)
+          Meteor.call('updateProfile', 'avatar', r.relative_url);
+          else console.log(r);
+        }
       });
-
-      return !!other;
     }
-  },
-  colours: function () {
-    return [
-      {colour: 'red'},
-      {colour: 'orange'},
-      {colour: 'green'},
-      {colour: 'cyan'},
-      {colour: 'blue'},
-      {colour: 'violet'}
-    ];
-  },*/
-
-
+  }
 });
