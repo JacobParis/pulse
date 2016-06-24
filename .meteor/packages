@@ -5,6 +5,7 @@
 # but you can also edit it by hand.
 
 accounts-base
+poetic:accounts-passwordless
 iron:router
 fastclick
 momentjs:moment
@@ -33,7 +34,6 @@ velocityjs:velocityjs
 matb33:collection-hooks
 accounts-facebook
 service-configuration
-veeramarni:accounts-phone
 emgee:libphonenumber
 anti:fake
 erasaur:meteor-lodash
@@ -48,3 +48,4 @@ standard-minifier-css
 standard-minifier-js
 raix:push
 edgee:slingshot
+email

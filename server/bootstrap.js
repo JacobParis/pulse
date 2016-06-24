@@ -34,50 +34,13 @@ Meteor.startup(function() {
     unlessExists: true
   });
 
-  var users = Meteor.users.findOne();
-  if (!users) {
-
-    Invitations.upsert({
-      _id: 'admin'
-    }, {
-      $set: {
-        used: false,
-      }
-    });
-    Invitations.upsert({
-      _id: 'GPRC-ALPHA'
-    }, {
-      $set: {
-        reusable: true,
-      }
-    });
-    //Create admin profile
-    var password = "l.juji9koili8979lkl8uok";
-    var phone = '+12345678901';
-    var id = Accounts.createUserWithPhone({
-      phone: phone,
-      password: password,
-      invitation: 'admin'
-    });
-
-    Roles.addUsersToRoles(id, ['admin'], 'roles');
-
-    Meteor.users.update({
-      invitation: 'admin'
-    }, {
-      $set: {
-        'phone.verified': true
-      }
-    });
-  }
-
   Meteor.setInterval(function () {
     Meteor.call('pulse');
   }, 1000);
 
 });
 
-SMS.twilio = {
+/*SMS.twilio = {
   FROM: '+15878031054',
   ACCOUNT_SID: 'AC16181b5b751cce07366cd0d94eff1ed1',
   AUTH_TOKEN: '2e74975f1c0ae7c9bb074c6de4df1c13'
@@ -87,7 +50,7 @@ SMS.phoneTemplates.text = function(user, code) {
   console.log(code);
   return code + ': This is your access code for Pulse Messenger!';
 };
-
+*/
 Accounts._options.verificationWaitTime = 10;
 Accounts._options.verificationMaxRetries = 1000;
 Accounts._options.verificationCodeLength = 6;
@@ -106,83 +69,13 @@ Accounts.onCreateUser(function(options, user) {
   user.blocks = [];
   user.roles = [];
   user.subscriptions = [];
-  user.invitation = options.invitation;
   return user;
 });
 
-Accounts.validateLoginAttempt(function(attempt) {
-  if (attempt && attempt.user && attempt.user.phone && attempt.user.phone.verified) return true;
-  else {
-    throw new Meteor.Error(403, 'Your phone has not been verified.');
-  }
-
-});
-
 Accounts.validateNewUser(function(user) {
-  if (user.invitation) {
-    var invitation = Invitations.findOne({
-      $or: [{
-        _id: user.invitation,
-        $or: [{
-          used: false
-        }, {
-          reusable: true
-        }]
-      }, {
-        alias: user.invitation,
-        $or: [{
-          used: false
-        }, {
-          reusable: true
-        }]
-      }]
-    });
-
-    if (!invitation) {
-      var used = Invitations.findOne({
-        $or: [{
-          _id: user.invitation
-        }, {
-          alias: user.invitation
-        }]
-      });
-      if (used) throw new Meteor.Error(403, "This invitation has already been redeemed.");
-      else throw new Meteor.Error(403, "Please provide a valid invitation.");
-    } else {
-      Invitations.insert({
-        sender: user._id,
-        used: false,
-        alias: Fake.word().slice(0, 10),
-        rooms: invitation.rooms,
-      });
-      Invitations.update({
-        $or: [{
-          _id: user.invitation
-        }, {
-          alias: user.invitation
-        }]
-      }, {
-        $set: {
-          used: true,
-          recipient: user._id
-        }
-      });
-      return true;
-    }
-  } else throw new Meteor.Error(403, 'Tried to create an account with an invalid invitation.');
+  return true;
 });
 
-Meteor.users.after.insert(function(userId, user) {
-  if (user.invitation) {
-    var invitation = Invitations.findOne({
-      $or: [{
-        _id: user.invitation
-      }, {
-        alias: user.invitation
-      }]
-    });
-  } else throw new Meteor.Error(500, 'User registered with no invitation.');
-});
 
 Meteor.publishComposite('selfData', function() {
   this.unblock();
@@ -363,8 +256,9 @@ Meteor.publishComposite('bundles', {
 });
 
 Meteor.methods({
-  'newUser': function(user) {
-    Accounts.createUserWithPhone(user);
+  'newUser' : function (address) {
+    console.log(address);
+    Accounts.sendLoginEmail(address);
   },
   'sendLink': function(number) {
     this.unblock();

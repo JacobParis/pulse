@@ -2,7 +2,7 @@
   "name": "pulse",
   "private": true,
   "scripts": {
-    "start": "meteor run --settings development.json",
+    "start": "MAIL_URL=smtp://AKIAJHQRDP5RTSRWHGXA:AjflyZ3%2FzRaerV%2FXiFjB0t9rqQ3UV9ZUJUH0zBRm1Fk8@email-smtp.us-west-2.amazonaws.com:465 meteor run --settings development.json",
     "build": "meteor build ~/documents/masquerade/bin --mobile-settings development.json  --server http://the.masquerade.sh/",
     "ios":"meteor run ios-device --mobile-server=http://the.masquerade.sh/ --verbose --settings development.json",
     "android": "meteor run android-device --mobile-server=http://the.masquerade.sh/ --verbose --settings development.json",
