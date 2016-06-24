@@ -9,26 +9,6 @@ Phone = function(number) {
 };
 
 Meteor.startup(function() {
-  process.env.MAIL_URL = 'smtp://AKIAJHQRDP5RTSRWHGXA:AjflyZ3%2FzRaerV%2FXiFjB0t9rqQ3UV9ZUJUH0zBRm1Fk8@email-smtp.us-west-2.amazonaws.com:465';
-
-  /*var loginAttemptVerifier = function(parameters) {
-    if (parameters.user && parameters.user.emails && (parameters.user.emails.length > 0)) {
-      // return true if verified email, false otherwise.
-      var found = _.find(
-                         parameters.user.emails,
-                         function(thisEmail) { return thisEmail.verified }
-                        );
-
-      if (!found) {
-          throw new Meteor.Error(500, 'We sent you an email.');
-      }
-      return found && parameters.allowed;
-    } else {
-      return false;
-    }
-  }
-  Accounts.validateLoginAttempt(loginAttemptVerifier);
-  */
 
   Roles.createRole("admin", {
     unlessExists: true
