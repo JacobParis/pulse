@@ -1,23 +1,23 @@
 <template name="post">
-    <div class="{{me}} {{colour}} {{#if client}}client{{/if}} {{reply}} post {{#if singlePost}}large{{/if}}">
+    <div class="{{me}} {{#if client}}client{{/if}} {{reply}} post {{#if singlePost}}large{{/if}}">
       <div class="post-header">
         {{#if avatar}}
         <img class="post-avatar" src="{{avatar}}" />
         {{/if}}
-        <div class="post-author {{avcolour}}">{{username}}</div>
+        <div class="post-author">{{username}}</div>
         {{#if timestamp}}
-        <span class="timestamp {{avcolour}}">{{time}}</span>
+        <span class="timestamp">{{time}}</span>
         {{/if}}
 
         {{#if replies}} <!-- Display number of comments -->
-        <label class="{{avcolour}} post-comment noselect">
+        <label class="post-comment noselect">
           <div>{{replies}}</div>
           <i class="mdi-comment"></i>
         </label>
         {{/if}}
 
         <!-- Display life remaining -->
-        <label class="{{avcolour}} post-heart noselect">
+        <label class="post-heart noselect">
           <div>{{life}}</div>
           {{#if currentUser}}{{#unless me}}
             <input type="checkbox" checked="{{likedEh}}"/>

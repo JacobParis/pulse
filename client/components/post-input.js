@@ -130,13 +130,24 @@ Template.feedInput.events({
 
     }
   },
+  'click #profile-avatar' : function (e, t) {
+    let bit = Session.get('context');
+
+    Session.set('context', !bit);
+  },
+  'click .context li' : function (e, t) {
+    Session.set('context', false);
+  },
+  'click #button-logout' : function (e, t) {
+    Meteor.logout();
+  },
   'click #feed-input-options' : function(e, t) {
     let bit = Session.get('feedOptions');
 
     if(bit) {
       //User is disabling the options menu
       //Remove the selected image
-      $('.input-photo-pending').html('');
+      $('.pending-image').html('');
       IMG = null;
     }
 
@@ -154,7 +165,7 @@ Template.feedInput.events({
           //If I don't clone, the uploaded image will match the CSS
           //Of this preview image
           let preview = $(this).clone().addClass('pending');
-          $('.input-photo-pending').html(preview);
+          $('.pending-image').html(preview);
         };
         img.src = e.target.result;
     };
@@ -240,6 +251,9 @@ Template.feedInput.helpers({
   },
   options: function() {
     return Session.get('feedOptions');
+  },
+  context: function () {
+    return !!Session.get('context');
   },
   placeholder: function () {
     if(this.author) {

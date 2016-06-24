@@ -88,12 +88,21 @@
 
 <template name="feedInput">
 
-  <div class="feed-input black">
-    <div class="feed-input-header black {{#if options}}reveal{{/if}}">
-      <label class="home-avatar">
-        <img src="{{avatar}}" />
-        <input type="file" class="file_bag">
-      </label>
+  <div class="feed-input">
+
+    <div class="header {{#if options}}reveal{{/if}}">
+      <ul class="context {{#unless context}}hide{{/unless}}">
+        <li id="button-avatar">
+          <label>
+            Change Avatar
+            <input type="file" class="file_bag">
+          </label>
+        </li>
+        <li id="button-logout">Log Out</li>
+      </ul>
+
+      <img id="profile-avatar" src="{{avatar}}" />
+
       <div class="group">
         <input type="text" id="settings-name" required>
         <span class="highlight"></span>
@@ -104,11 +113,13 @@
           <button type="submit" class="mdi-check"></button>
         {{/if}}
       </div>
+
       <label id="message-button-photo" class="mdi-message-image">
         <input id="photo-input" type="file" class="hide">
       </label>
     </div>
-    <div class="input-photo-pending"></div>
+    
+    <div class="pending-image"></div>
     <button id="feed-input-options" class="mdi-settings-box"></button>
     <div data-value="{{placeholder}}" contentEditable></div>
     <button id="feed-input-send" class="mdi-send"></button>
