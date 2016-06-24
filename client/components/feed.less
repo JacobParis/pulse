@@ -1,0 +1,176 @@
+@background: #eee;
+@text: contrast(@background,
+        lighten(@background, 80%),
+        darken(@background, 80%));
+
+#feed-posts {
+	text-align: left;
+	margin-bottom: 4rem;
+	li {
+		box-shadow: 0 3px 4px rgba(0, 0, 0, 0.16), 0 3px 4px rgba(0, 0, 0, 0.23);
+    background: @background;
+	}
+	a.clickthru {
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+	}
+	.post-spacer {
+    height: 1rem;
+    width: 100%;
+    text-align: center;
+		span {
+	    background: rgba(255, 255, 255, 0.3);
+	    width: 0.25rem;
+	    height: 1rem;
+	    display: inline-block;
+	    box-shadow: 0px 0px 16px black;
+    }
+	}
+}
+
+.post {
+  transition: background 0.5s ease;
+  -ms-transition: background 0.5s ease;
+  -webkit-transition: background 0.5s ease;
+  position: relative;
+  border-top: 1px solid rgba(128,128,128, 0.4);
+  color: @text;
+  padding: 0.5rem 0;
+  &.client {
+		&:before {
+			content: '';
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			background: rgba(0, 0, 0, 0.8);
+			z-index: 3;
+		}
+		&:after {
+			content: 'Your post will go up as soon as we reconnect';
+			position: absolute;
+			color: @text;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			z-index: 4;
+			margin: auto;
+			text-align: center;
+			padding-top: 1.5rem;
+			padding-right: 3rem;
+			padding-left: 3rem;
+		}
+	}
+  &.large {
+    &:before {
+      content: '';
+      background: white;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      z-index: 3;
+      opacity: 0.2;
+      pointer-events: none;
+    }
+    p {
+      font-size: 1.5rem;
+      font-size: 5vw;
+    }
+    .post-image {
+      max-height: none;
+    }
+  }
+  &.reply {
+    margin-top: 0;
+    padding-top: 0.5rem;
+  }
+  .post-header {
+    position: relative;
+    padding-left: 4rem;
+    padding-top: 0.25rem;
+    z-index: 3;
+    .post-avatar {
+      width: 2.5rem;
+      height: 2.5rem;
+      position: absolute;
+      left: 0.5rem;
+      top: 0.5rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+      border-radius: 0.25rem;
+    }
+    .post-author {
+      font-size: 0.8rem;
+      font-weight: 500;
+      background: none;
+      text-transform: uppercase;
+    }
+    .timestamp {
+      font-size: 80%;
+      opacity: 0.6;
+      background: none;
+    }
+    label {
+      background: none;
+      position: absolute;
+      top: 0;
+      text-align: center;
+      div {
+        font-size: 0.8rem;
+      }
+      &.post-comment {
+        right: 4rem;
+      }
+      &.post-heart {
+        right: 1rem;
+        input {
+          display: none;
+          &:not(:checked) ~ i {
+            color: grey;
+            opacity: 0.8;
+          }
+        }
+        i {
+          cursor: pointer;
+          transition: opacity 0.2s ease, color 0.2s ease;
+          -ms-transition: opacity 0.2s ease, color 0.2s ease;
+          -webkit-transition: opacity 0.2s ease, color 0.2s ease;
+          animation: beat 0.2s;
+        }
+      }
+    }
+  }
+  .post-image {
+    margin-bottom: -0.3rem;
+    max-height: 100px;
+    overflow: hidden;
+    img {
+      width: 100%;
+    }
+  }
+  .post-main {
+    padding: 1.5rem 0.5rem 0.5rem;
+    position: relative;
+    z-index: 2;
+    clear: both;
+    color: @text;
+    >i {
+      width: 48px;
+      height: 48px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      transition: opacity 0.4s ease, transform 0.5s ease-out;
+      &.mask- {
+        opacity: 0;
+        transform: rotateZ(-360deg);
+      }
+    }
+  }
+}

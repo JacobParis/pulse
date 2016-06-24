@@ -1,0 +1,136 @@
+@background: #333;
+@text: contrast(@background,
+        lighten(@background, 80%),
+        darken(@background, 80%));
+
+main.Feed {
+	padding-bottom: 3rem;
+}
+
+.feed-input {
+	box-shadow:  0 0px 16px rgba(0, 0, 0, 0.6);
+	color: @text;
+  background: @background;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 400;
+	transition: background-color 0.2s ease, bottom 0.4s ease;
+	&.hidden {
+		display: none;
+	}
+
+  .header {
+  	position: absolute;
+  	top: 0;
+  	left: 0;
+  	right: 0;
+  	height: 3rem;
+  	color: @text;
+    background: inherit;
+  	padding: 0.5rem 0 0 4rem;
+  	font-size: 0.8rem;
+  	transform: translateY(-100%);
+  	transition: opacity 0.2s ease;
+  	opacity: 0;
+  	&.reveal {
+  		opacity: 1;
+  	}
+    .context {
+      position: absolute;
+      bottom: 4rem;
+      left: 0.5rem;
+      background: @background;
+      box-shadow: 1px 2px 3px rgba(0,0,0,0.5);
+      li {
+        height: 2rem;
+        line-height: 2rem;
+        padding: 0 0.5rem;
+        cursor: pointer;
+        label {
+          cursor: pointer;
+        }
+      }
+    }
+  	img {
+  		height: 2.5rem;
+  		width: 2.5rem;
+  		position: absolute;
+  		left: 0.5rem;
+  		top: 0.5rem;
+  		border-radius: 0.25rem;
+  		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+  	}
+  	.file_bag {
+  		display: none;
+  	}
+  }
+
+  .pending-image {
+		max-height: 100px;
+    overflow: hidden;
+		img {
+			width: 100%;
+	    transform: translateY(-40%);
+		}
+	}
+
+  #message-button-photo {
+  	cursor: pointer;
+  	position: absolute;
+  	right: 0;
+  	width: 2rem;
+    padding: 0.5rem;
+  }
+
+	div[contentEditable] {
+		color: @text;
+		border: none;
+		padding-top: 1rem;
+		margin-left: 1.5rem;
+		cursor: text;
+		position:relative;
+		&:before {
+			content: attr(data-value);
+			position: absolute;
+			opacity: 0.8;
+			transition: top 0.4s ease-out, font-size 0.4s ease-out;
+			-ms-transition: top 0.4s ease-out, font-size 0.4s ease-out;
+			-webkit-transition: top 0.4s ease-out, font-size 0.4s ease-out;
+		}
+		&:not(:empty) {
+			&:before {
+				top: -0rem;
+				font-size: 75%;
+			}
+		}
+		&:focus {
+			&:before {
+				top: -0rem;
+				font-size: 75%;
+			}
+		}
+	}
+
+  button {
+    position: absolute;
+    color: @text;
+    background: none;
+    box-shadow: none;
+    padding: 0;
+    margin: auto;
+	}
+
+	#feed-input-send {
+    right: 0.5rem;
+    bottom: 0;
+	}
+
+	#feed-input-options {
+	    left: 0.5rem;
+	    bottom: 0;
+	}
+
+}
