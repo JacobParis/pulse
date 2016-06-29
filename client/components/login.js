@@ -1,11 +1,24 @@
-Phone = function(number) {
-  var a = number.replace(/[^\d\+]/g, '');
-  var b = null;
-  if (a.length < 11) b = '+1' + a;
-  else if (a.length === 11) b = '+' + a;
-  else b = a;
+parseAddress = function(input) {
+  var emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  var phoneRegex = /^[2-9]\d{2}[2-9]\d{2}\d{4}$/;
+  var phoneDigits = input.replace(/\D/g, "");
 
-  return b;
+  if(emailRegex.test(input)) {
+    return {
+      identifier: input,
+      type: 'email'
+    };
+  } else if (phoneRegex.test(phoneDigits)) {
+    var raw = null;
+    if (phoneDigits.length < 11) raw = '+1' + phoneDigits;
+    else if (phoneDigits.length === 11) raw = '+' + phoneDigits;
+    else raw = a;
+
+    return {
+      identifier: raw,
+      type: 'phone'
+    };
+  } else return false;
 };
 
 Tracker.autorun(function() {
@@ -22,21 +35,28 @@ Template.LoginForm.events({
   'submit #login-form': function(e, t) {
     e.preventDefault();
 
+    let username = parseAddress(t.find('#login-username').value);
+    if(username.type == "phone") {
+      let phone = username.identifier;
+      let code = t.find('#login-code').value.toString();
+
+      console.log(code, phone);
+      Accounts.loginByPhone(code, phone, function (err) {
+        if(err) throw err;
+      });
+    }
+
 
   },
   'click #create-account': function(e, t) {
     e.preventDefault();
 
     //Check if email or phone
-    let address = t.find('#login-username').value;
-    //Check if email exists in system
-    //Generate code
-    //Send login email
-    Meteor.call('newUser', address);
-    //Check if phone exists in system
-    //Generate code
-    //Send SMS
+    let identifier = parseAddress(t.find('#login-username').value);
 
+    if(identifier) {
+      Meteor.call('newUser', identifier);
+    }
   },
   'click #login-logout': function(e, t) {
     e.preventDefault();

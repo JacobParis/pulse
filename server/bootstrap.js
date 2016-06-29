@@ -9,6 +9,10 @@ Phone = function(number) {
 };
 
 Meteor.startup(function() {
+  Accounts.emailTemplates.login.html = function (user, url) {
+    console.log(user);
+    return '<h1>Welcome to Pulse.</h1><br/><a href="' + url + '">Click to log in</a>';
+  };
 
   Roles.createRole("admin", {
     unlessExists: true
@@ -36,14 +40,9 @@ Accounts._options.verificationMaxRetries = 1000;
 Accounts._options.verificationCodeLength = 6;
 
 Accounts.onCreateUser(function(options, user) {
+  console.log(options);
   user.profile = {
-    notifications: {
-      message: false,
-      heart: false,
-      comment: false,
-      metacomment: false
-    },
-    score: 0
+    phone: options.phone
   };
 
   user.blocks = [];
@@ -236,9 +235,21 @@ Meteor.publishComposite('bundles', {
 });
 
 Meteor.methods({
-  'newUser' : function (address) {
-    console.log(address);
-    Accounts.sendLoginEmail(address);
+  'newUser' : function (data) {
+    if(data.type == "email") {
+      Accounts.sendLoginEmail(data.identifier);
+    } else if (data.type == "phone") {
+
+      let twilio = {
+        from: '+15878031054',
+        sid: 'AC16181b5b751cce07366cd0d94eff1ed1',
+        auth: '2e74975f1c0ae7c9bb074c6de4df1c13'
+      };
+
+      let customMessage = "[code]: This is your access code for Pulse";
+      Accounts.sendLoginSms(data.identifier, twilio, customMessage);
+    }
+
   },
   'sendLink': function(number) {
     this.unblock();
