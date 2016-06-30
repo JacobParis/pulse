@@ -14,15 +14,16 @@
           <label class="cyan">Email or phone number</label>
         </div>
 
-        <div class="group">
-          <input type="text" id="login-code" required>
-          <span class="highlight"></span>
-          <span class="bar cyan"></span>
-          <label class="cyan">Authorization Code</label>
-        </div>
-
-        <input type="submit" id="login-button" class="violet" value="ENTER"/>
-        <input type="button" id="create-account" class="blue" value="CREATE"/>
+        {{#if auth}}
+          <div class="group">
+            <input type="text" id="login-code" required>
+            <span class="highlight"></span>
+            <span class="bar cyan"></span>
+            <label class="cyan">Authorization Code</label>
+          </div>
+        {{/if}}
+        
+        <input type="button" id="create-account" class="blue" value="CREATE OR LOGIN"/>
       </form>
     {{else}}
       <button id="login-logout">EXIT</button>

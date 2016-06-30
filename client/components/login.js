@@ -32,30 +32,30 @@ Tracker.autorun(function() {
 });
 
 Template.LoginForm.events({
-  'submit #login-form': function(e, t) {
-    e.preventDefault();
-
-    let username = parseAddress(t.find('#login-username').value);
-    if(username.type == "phone") {
-      let phone = username.identifier;
-      let code = t.find('#login-code').value.toString();
-
-      console.log(code, phone);
-      Accounts.loginByPhone(code, phone, function (err) {
-        if(err) throw err;
-      });
-    }
-
-
-  },
   'click #create-account': function(e, t) {
     e.preventDefault();
 
     //Check if email or phone
-    let identifier = parseAddress(t.find('#login-username').value);
+    let username = parseAddress(t.find('#login-username').value);
+    if(username.type == "phone") {
+      //Has the user entered a code?
+      var authField = Template.instance().authField.get();
+      if(authField) {
+        let code = t.find('#login-code').value.toString();
+        let phone = username.identifier;
 
-    if(identifier) {
-      Meteor.call('newUser', identifier);
+        if(code.length == 6 && phone.length > 9) {
+          Accounts.loginByPhone(code, phone, function (err) {
+            if(err) throw err;
+          });
+        }
+      } else {
+        //The user has not entered a code, send one
+        Meteor.call('newUser', username);
+        Template.instance().authField.set(true);
+      }
+    } else if(username.type == "email") {
+      Meteor.call('newUser', username);
     }
   },
   'click #login-logout': function(e, t) {
@@ -75,10 +75,14 @@ Template.LoginForm.helpers({
   },
   LoginText: function() {
     return Template.instance().loginText.get();
+  },
+  auth: function() {
+    return Template.instance().authField.get();
   }
 });
 
 Template.LoginForm.onCreated(function() {
   var instance = this;
   instance.loginText = new ReactiveVar("Welcome to Pulse Messenger!");
+  instance.authField = new ReactiveVar(false);
 });
