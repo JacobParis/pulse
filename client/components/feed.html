@@ -6,7 +6,6 @@
         {{#each ancestors}}
           {{#if life}}
             {{> post}}
-            <div class="post-spacer"><span></span></div>
           {{/if}}
         {{/each}}
       {{#if life}}
@@ -14,7 +13,6 @@
       {{/if}}
         {{#each replies}}
           {{#if life}}
-            <div class="post-spacer"><span></span></div>
             {{> post}}
           {{/if}}
         {{/each}}
@@ -118,7 +116,7 @@
         <input id="photo-input" type="file" class="hide">
       </label>
     </div>
-    
+
     <div class="pending-image"></div>
     <button id="feed-input-options" class="mdi-settings-box"></button>
     <div data-value="{{placeholder}}" contentEditable></div>
