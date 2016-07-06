@@ -1,4 +1,7 @@
 <template name="Posts">
+  {{#if currentUser}}
+    {{> feedInput}}
+  {{/if}}
   <ul id="feed-posts">
   {{#with singlePost}}
     {{#if life}}
@@ -16,9 +19,7 @@
             {{> post}}
           {{/if}}
         {{/each}}
-        {{#if currentUser}}
-          {{> feedInput}}
-        {{else}}
+        {{#unless currentUser}}
           <div class="pitch">
             <h2>WARN YOUR FRIENDS</h2>
             <p></p>
@@ -54,7 +55,7 @@
               </div>
             {{/if}}
           </div>
-        {{/if}}
+        {{/unless}}
       </li>
     {{/if}}
   {{/with}}
