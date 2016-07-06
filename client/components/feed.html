@@ -21,7 +21,7 @@
         {{else}}
           <div class="pitch">
             <h2>WARN YOUR FRIENDS</h2>
-            <p>Join the Masquerade today and unlock Limited Edition content</p>
+            <p></p>
             <a href="#download">
               <button class="cyan" id="pitch-join">JOIN THE PARTY</button>
             </a>
@@ -59,17 +59,11 @@
     {{/if}}
   {{/with}}
 </ul>
+<p class="feed-closer">No more posts to show</p>
 </template>
 
 <template name="Feed">
   {{#if currentUser}}
-  <!--<div class="tagsinput green">
-    <div class="group">
-      <input type="text" id="feed-input" required/>
-      <label class="white">What are you up to?</label>
-    </div>
-    <button id="feed-input-send" class="mdi-send green"></button>
-  </div>-->
     {{> feedInput}}
 
   {{/if}}
@@ -82,6 +76,7 @@
       {{/if}}
     {{/each}}
   </ul>
+  <p class="feed-closer">No more posts to show</p>
 </template>
 
 <template name="feedInput">
@@ -123,14 +118,4 @@
     <button id="feed-input-send" class="mdi-send"></button>
 
   </div>
-    <!--{{#unless colourSet}}
-    <div class="message-palette">
-      {{#each colours}}
-      <span class="{{colour}}">
-        {{#if colourInput colour}}<i class="mdi-check"></i>{{/if}}
-      </span>
-      {{/each}}
-    </div>
-    {{/unless}}-->
-
 </template>
