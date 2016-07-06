@@ -29,6 +29,9 @@
 
       {{#if image}}
       <div class="post-image">
+        {{#unless singlePost}}
+          <a class="clickthru" href="/post/{{_id}}"></a>
+        {{/unless}}
           <img src="{{image}}">
         </div>
       {{/if}}
