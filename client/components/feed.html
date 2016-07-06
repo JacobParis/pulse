@@ -19,50 +19,49 @@
             {{> post}}
           {{/if}}
         {{/each}}
-        {{#unless currentUser}}
-          <div class="pitch">
-            <h2>WARN YOUR FRIENDS</h2>
-            <p></p>
-            <a href="#download">
-              <button class="cyan" id="pitch-join">JOIN THE PARTY</button>
-            </a>
-            {{#if showDownload}}
-              <div class="download dialog cyan">
-                <a href="#">
-                  <button class="dialog-close">X</button>
-                </a>
-                <h4>ON YOUR MOBILE DEVICE</h4>
-                <p>Visit
-                  <a href="http://www.masquerade.sh/">masquerade.sh</a>
-                  or text a link to your phone</p>
-
-                <div class="input">
-                  <input type="tel" id="download-phone"/>
-                  <button class="mdi-message green" id="sendLink"></button>
-                </div>
-
-                <div class="download-badges">
-                  <a
-                    href="https://play.google.com/store/apps/details?id=com.id1l27p6tm6qraa1fyl29s&amp;hl=en&amp;utm_source=global_co&amp;utm_medium=prtnr&amp;utm_content=Mar2515&amp;utm_campaign=PartBadge&amp;pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1">
-                    <img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png">
-                  </a>
-                </div>
-
-                <h4>ON THE WEB</h4>
-                <p>Visit
-                  <a href="http://the.masquerade.sh/">the.masquerade.sh</a>
-                  and join the party!</p>
-              </div>
-            {{/if}}
-          </div>
-        {{/unless}}
       </li>
+
     {{/if}}
   {{/with}}
 </ul>
-<p class="feed-closer">
-  <a href="/">Back to main feed</a>
-</p>
+{{#if currentUser}}
+  <p class="feed-closer">
+    <a href="/">Back to main feed</a>
+  </p>
+{{else}}
+  <div class="pitch">
+    <a href="#download">
+      <div class="footer" id="pitch-join">JOIN THE PARTY</div>
+    </a>
+    {{#if showDownload}}
+      <div class="download dialog cyan">
+        <a href="#">
+          <button class="dialog-close">X</button>
+        </a>
+        <h4>ON YOUR MOBILE DEVICE</h4>
+        <p>Visit
+          <a href="http://www.masquerade.sh/">masquerade.sh</a>
+          or text a link to your phone</p>
+
+        <div class="input">
+          <input type="tel" id="download-phone"/>
+          <button class="mdi-message green" id="sendLink"></button>
+        </div>
+
+        <div class="download-badges">
+          <a href="https://play.google.com/store/apps/details?id=com.id1l27p6tm6qraa1fyl29s&amp;hl=en&amp;utm_source=global_co&amp;utm_medium=prtnr&amp;utm_content=Mar2515&amp;utm_campaign=PartBadge&amp;pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1">
+            <img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png">
+          </a>
+        </div>
+
+        <h4>ON THE WEB</h4>
+        <p>Visit
+          <a href="http://the.masquerade.sh/">the.masquerade.sh</a>
+          and join the party!</p>
+      </div>
+    {{/if}}
+  </div>
+{{/if}}
 </template>
 
 <template name="Feed">

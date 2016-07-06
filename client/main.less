@@ -269,21 +269,17 @@ header {
 }
 .dialog {
   background-color: @background;
-  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
-  padding: 2rem;
-  border-radius: 0.25rem;
-  font-size: 1.1rem;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+  padding: 1rem;
   min-width: 225px;
   min-height: 100px;
-  max-width: 80%;
+  max-width: 100%;
   width: 320px;
   font-weight: 500;
   height: auto;
   position: fixed;
   top: 50%;
   left: 50%;
-  right: auto;
-  bottom: auto;
   transform: translate(-50%, -50%);
   z-index: 990;
   box-sizing: border-box;
@@ -369,22 +365,23 @@ div.button {
     box-sizing: border-box;
     color: @text;
   }
-  .footer {
-    background: white;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 4rem;
-    line-height: 4rem;
-    color: black;
-    opacity: 0.5;
-    cursor: pointer;
-  }
+
 }
+
+.footer {
+  background: white;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4rem;
+  line-height: 4rem;
+  color: black;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
 .pitch {
-  text-align: center;
-  margin-bottom: 6rem;
   text-align: center;
   h2 {
     font-size: 7vw;
@@ -419,7 +416,8 @@ div.button {
     position: absolute;
     right: 0;
     top: 0;
-    padding: 1rem;
+    padding: 0;
+    margin: 0 1rem;
     cursor: pointer;
     background: none;
     box-shadow: none;
