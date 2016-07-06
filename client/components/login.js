@@ -32,7 +32,7 @@ Tracker.autorun(function() {
 });
 
 Template.LoginForm.events({
-  'click #create-account': function(e, t) {
+  'click #login-button': function(e, t) {
     e.preventDefault();
 
     //Check if email or phone
@@ -41,6 +41,7 @@ Template.LoginForm.events({
       //Has the user entered a code?
       var authField = Template.instance().authField.get();
       if(authField) {
+        Template.instance().buttonText.set('Logging in...');
         let code = t.find('#login-code').value.toString();
         let phone = username.identifier;
 
@@ -48,13 +49,18 @@ Template.LoginForm.events({
           Accounts.loginByPhone(code, phone, function (err) {
             if(err) throw err;
           });
+        } else if (code.length !== 6) {
+          Template.instance().buttonText.set('Invalid login code');
         }
       } else {
         //The user has not entered a code, send one
+        Template.instance().authText.set('SMS Login Code');
+        Template.instance().buttonText.set("Sign in with SMS code");
         Meteor.call('newUser', username);
         Template.instance().authField.set(true);
       }
     } else if(username.type == "email") {
+      Template.instance().buttonText.set("Send login email again");
       Meteor.call('newUser', username);
     }
   },
@@ -76,6 +82,12 @@ Template.LoginForm.helpers({
   LoginText: function() {
     return Template.instance().loginText.get();
   },
+  buttonText: function () {
+    return Template.instance().buttonText.get();
+  },
+  authText: function () {
+    return Template.instance().authText.get();
+  },
   auth: function() {
     return Template.instance().authField.get();
   }
@@ -83,6 +95,8 @@ Template.LoginForm.helpers({
 
 Template.LoginForm.onCreated(function() {
   var instance = this;
-  instance.loginText = new ReactiveVar("Welcome to Pulse Messenger!");
+  instance.loginText = new ReactiveVar("");
+  instance.buttonText = new ReactiveVar("Log In or Sign Up");
+  instance.authText = new ReactiveVar("Authorization Code");
   instance.authField = new ReactiveVar(false);
 });

@@ -1,29 +1,30 @@
 <template name="LoginForm">
-  <div id="login-hero" class="violet">
+  <div class="login-page">
     <img src="/images/pulsetrans.png"/>
-    <p>PULSE</p>
-  </div>
-  <div id="login">
+    <h1>PULSE</h1>
     {{#unless currentUser}}
       <div>{{LoginText}}</div>
       <form id="login-form" action="action">
-        <div class="group">
-          <input type="text" id="login-username" required>
-          <span class="highlight"></span>
-          <span class="bar cyan"></span>
-          <label class="cyan">Email or phone number</label>
-        </div>
-
-        {{#if auth}}
+        <div>
           <div class="group">
-            <input type="text" id="login-code" required>
+            <input type="text" id="login-username" required>
             <span class="highlight"></span>
-            <span class="bar cyan"></span>
-            <label class="cyan">Authorization Code</label>
+            <span class="bar"></span>
+            <label>Email/Phone Number</label>
           </div>
-        {{/if}}
-        
-        <input type="button" id="create-account" class="blue" value="CREATE OR LOGIN"/>
+
+          {{#if auth}}
+            <div class="group">
+              <input type="text" id="login-code" required>
+              <span class="highlight"></span>
+              <span class="bar"></span>
+              <label>{{authText}}</label>
+            </div>
+          {{/if}}
+        </div>
+        <div class="footer" id="login-button">
+          <p>{{buttonText}}</p>
+        </div>
       </form>
     {{else}}
       <button id="login-logout">EXIT</button>

@@ -1,5 +1,6 @@
-@body: #666;
+@body: @theme;
 @background: #333;
+@theme: #29B6F6;
 @text: contrast(@background,
         lighten(@background, 80%),
         darken(@background, 80%));
@@ -303,7 +304,7 @@ header {
   opacity: 0.5;
 }
 main {
-  min-height: 95vh;
+  min-height: 100vh;
   box-sizing: border-box;
   >span {
     position: absolute;
@@ -362,13 +363,15 @@ div.button {
     max-height: 30vh;
   }
 }
-#login {
+.login-page {
   text-align: center;
-  >div {
-    color: @text;
-    opacity: 0.6;
-    padding: 0.5rem;
+  height: 100vh;
+  background-color: @theme;
+  color: white;
+  img {
+    height: 25vh;
   }
+
 }
 #login-form {
   width: 80%;
@@ -380,7 +383,18 @@ div.button {
   input {
     box-sizing: border-box;
     color: @text;
-    float: right;
+  }
+  .footer {
+    background: white;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4rem;
+    line-height: 4rem;
+    color: black;
+    opacity: 0.5;
+    cursor: pointer;
   }
 }
 .pitch {
@@ -650,7 +664,7 @@ input {
     outline: none;
   }
   &:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 1000px #424242 inset;
+    -webkit-box-shadow: 0 0 0 1000px @theme inset;
     -webkit-text-fill-color: white !important;
   }
 }
@@ -733,7 +747,7 @@ footer {
   }
   #feed-posts {
     width: 80%;
-    margin: 1rem auto 2rem;
+    margin: 1rem auto 8rem auto;
     li {
       div {
         &:only-child {
