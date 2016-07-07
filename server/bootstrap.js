@@ -9,6 +9,7 @@ Phone = function(number) {
 };
 
 Meteor.startup(function() {
+  process.env.MAIL_URL = Meteor.settings.MAIL_URL;
   Accounts.emailTemplates.login.html = function (user, url) {
     console.log(user);
     return '<h1>Welcome to Pulse.</h1><br/><a href="' + url + '">Click to log in</a>';
@@ -144,6 +145,10 @@ Meteor.publishComposite('singlePost', function(id) {
       });
     },
     children: [{
+      find: function(thread) { //Username of author
+        return Meteor.users.find({_id: thread.author}, {fields: {'profile': 1}});
+      }
+    },{
       find: function(post) { //Direct ancestors of post
         return post.ancestors ? Threads.find({
           _id: {
@@ -241,9 +246,9 @@ Meteor.methods({
     } else if (data.type == "phone") {
 
       let twilio = {
-        from: '+15878031054',
-        sid: 'AC16181b5b751cce07366cd0d94eff1ed1',
-        auth: '2e74975f1c0ae7c9bb074c6de4df1c13'
+        from: Meteor.settings.twilio.from,
+        sid: Meteor.settings.twilio.sid,
+        auth: Meteor.settings.twilio.auth
       };
 
       let customMessage = "[code]: This is your access code for Pulse";
@@ -255,7 +260,7 @@ Meteor.methods({
     this.unblock();
     var options = {
       to: Phone(number),
-      body: 'Join the Masquerade and become a part of the underground - http://bit.ly/1pbYs7j'
+      body: 'Welcome to Pulse - http://bit.ly/1pbYs7j'
     };
 
     SMS.send(options);

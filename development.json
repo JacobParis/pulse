@@ -25,5 +25,11 @@
   "AWSAccessKeyId" : "AKIAJFP77O2TWYFRDVCA",
   "AWSSecretAccessKey" : "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",
   "S3Bucket" : "pulse-avatars",
-  "AWSRegion" : "us-west-2"
+  "AWSRegion" : "us-west-2",
+  "MAIL_URL": "smtp://AKIAJHQRDP5RTSRWHGXA:AjflyZ3%2FzRaerV%2FXiFjB0t9rqQ3UV9ZUJUH0zBRm1Fk8@email-smtp.us-west-2.amazonaws.com:465",
+  "twilio": {
+    "from": "+15878031054",
+    "sid": "AC16181b5b751cce07366cd0d94eff1ed1",
+    "auth": "2e74975f1c0ae7c9bb074c6de4df1c13"
+  }
 }
